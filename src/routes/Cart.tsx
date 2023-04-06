@@ -179,6 +179,7 @@ export const Cart: FC<Props> = ({ onProductQuantityChange }) => {
             />
             {uniqueVatVategories.map((vatCategory) => (
               <SummaryTableRow
+                key={vatCategory}
                 label={`VAT ${vatCategory}%`}
                 value={`${getTotalItemsPricePerVat(vatCategory)} ${
                   CURRENCIES.EURO
