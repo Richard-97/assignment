@@ -25,6 +25,7 @@ export const Products: FC<Props> = ({ onProductClick }) => {
           to={routes.CART}
           alignSelf="center"
           rightIcon={<ChevronRightIcon />}
+          mb="4"
         >
           Open Cart
         </Button>
