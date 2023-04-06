@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Divider, Flex, Text } from "@chakra-ui/react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
-import { useAppSelector } from "redux/store";
+import { useAppDispatch, useAppSelector } from "redux/store";
+import { setOrderProducts } from "redux/features/orderSlice";
 import { Layout } from "layout";
 import { Header } from "components/Header";
 import { routes } from "constants/routes";
 import { CURRENCIES } from "constants/common";
 
 export const Order = () => {
+  const dispatch = useAppDispatch();
+  const navigation = useNavigate();
+
   const products = useAppSelector((state) => state.orderProducts.orderProducts);
   const totalPrice = useAppSelector((state) => state.orderProducts.totalPrice);
 
@@ -55,7 +59,17 @@ export const Order = () => {
               >{`${totalPrice} ${CURRENCIES.EURO}`}</Text>{" "}
               to our bitcoin address.
             </Text>
-            <Button as={Link} to={routes.PRODUCTS}>
+            <Button
+              onClick={() => {
+                dispatch(
+                  setOrderProducts({
+                    products: [],
+                    totalPrice: null,
+                  })
+                );
+                navigation(routes.PRODUCTS);
+              }}
+            >
               Continue shopping
             </Button>
           </>

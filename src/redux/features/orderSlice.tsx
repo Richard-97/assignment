@@ -13,7 +13,7 @@ interface OrderState {
 
 interface OrderPayload {
   products: OrderProduct[];
-  totalPrice: number;
+  totalPrice: number | null;
 }
 
 const initialState: OrderState = {

@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { times } from "lodash";
 import {
@@ -18,6 +17,8 @@ import {
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Layout } from "layout";
+import { setOrderProducts } from "redux/features/orderSlice";
+import { useAppDispatch } from "redux/store";
 import { useCartItems } from "hooks/useCartItems";
 import { CartQuantityChange } from "interfaces/cart";
 import { Header } from "components/Header";
@@ -25,7 +26,6 @@ import { routes } from "constants/routes";
 import { CURRENCIES, SIGNS } from "constants/common";
 import { SummaryTableRow } from "components/SummaryTableRow";
 import { setCartItems } from "utils/localStorage";
-import { setOrderProducts } from "redux/features/orderSlice";
 
 const TABLE_HEADER_LABELS = [
   { label: "Item", minW: "auto" },
@@ -43,7 +43,7 @@ interface Props {
 
 export const Cart: FC<Props> = ({ onProductQuantityChange }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const {
     cartItems,
@@ -86,7 +86,7 @@ export const Cart: FC<Props> = ({ onProductQuantityChange }) => {
                         id,
                         name,
                         quantity,
-                      }),
+                      })
                     );
 
                     // eslint-disable-next-line no-console
@@ -99,7 +99,7 @@ export const Cart: FC<Props> = ({ onProductQuantityChange }) => {
                       setOrderProducts({
                         products: orderProducts,
                         totalPrice: Number(getTotalItemsPrice()),
-                      }),
+                      })
                     );
 
                     setCartItems([]);
@@ -170,7 +170,7 @@ export const Cart: FC<Props> = ({ onProductQuantityChange }) => {
                     CURRENCIES.EURO
                   }`}</Td>
                 </Tr>
-              ),
+              )
             )}
             <SummaryTableRow
               label="Total excl. VAT"
